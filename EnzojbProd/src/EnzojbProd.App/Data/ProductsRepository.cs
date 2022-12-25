@@ -10,44 +10,46 @@
 
 	public class ProductsRepository
 	{
-		private SQLiteAsyncConnection connection;
+		private readonly SqlLiteConnectionBuilder _connectionBuilder;
 
-		public ProductsRepository() { }
+		public ProductsRepository(SqlLiteConnectionBuilder connectionBuilder) 
+		{
+			_connectionBuilder = connectionBuilder;
+		}
 
 		internal async Task Init()
 		{
-			if (connection is not null)
-				return;
-
-			connection = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-
-			await connection.CreateTableAsync<ProductViewModel>();
+			await _connectionBuilder.InitConnectionAsync();
 		}
 
 		public async Task<IEnumerable<ProductViewModel>> GetAllAsync(string name = "")
 		{
 			await Init();
 			return string.IsNullOrEmpty(name) ?
-				await connection.Table<ProductViewModel>().ToListAsync() :
-				await connection.Table<ProductViewModel>().Where(w => w.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+				await _connectionBuilder.ConnectionAsync
+					.Table<ProductViewModel>().ToListAsync() :
+				await _connectionBuilder.ConnectionAsync
+					.Table<ProductViewModel>().Where(w => w.Name.ToLower().Contains(name.ToLower())).ToListAsync();
 		}
 
 		public async Task<ProductViewModel> GetProductAsync(int id)
 		{
 			await Init();
-			return await connection.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Id.Equals(id));
+			return await _connectionBuilder.ConnectionAsync
+				.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Id.Equals(id));
 		}
 
 		public async Task<ProductViewModel> GetProductAsync(string ean)
 		{
 			await Init();
-			return await connection.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Ean.Equals(ean));
+			return await _connectionBuilder.ConnectionAsync
+				.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Ean.Equals(ean));
 		}
 
 		public async Task SaveAsync(ProductViewModel model)
 		{
 			await Init();
-			await connection.RunInTransactionAsync(tran =>
+			await _connectionBuilder.ConnectionAsync.RunInTransactionAsync(tran =>
 			{
 				if (model.Id <= 0)
 				{
@@ -64,7 +66,7 @@
 		{
 			await Init();
 			var product = await GetProductAsync(id);
-			await connection.RunInTransactionAsync(tran =>
+			await _connectionBuilder.ConnectionAsync.RunInTransactionAsync(tran =>
 			{
 				if (product != null)
 				{

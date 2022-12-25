@@ -17,6 +17,7 @@ namespace EnzojbProd.App
 				});
 			builder.Services.AddSingleton<ProductList>();
 			builder.Services.AddTransient<ProductItem>();
+			builder.Services.AddTransient<SqlLiteConnectionBuilder>();
 			builder.Services.AddSingleton<ProductsRepository>();
 
 			return builder.Build();
