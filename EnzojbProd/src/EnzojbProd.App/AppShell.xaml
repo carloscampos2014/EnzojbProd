@@ -22,14 +22,13 @@
     </Shell.Resources>
     <Shell.MenuItemTemplate>
         <DataTemplate>
-            <Grid Margin="0,20,0,0" VerticalOptions="CenterAndExpand" ColumnDefinitions="0.2*,0.8*">
+            <Grid HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" ColumnDefinitions="0.2*,0.8*">
                 <Image Source="{Binding Icon}"
                        Margin="5"
                        HeightRequest="24" />
                 <Label Grid.Column="1"
                        Text="{Binding Text}"
                        FontAttributes="Bold"
-                       FontSize="Medium"
                        VerticalTextAlignment="Center" />
             </Grid>
         </DataTemplate>

@@ -59,4 +59,9 @@ public partial class ProductItem : ContentPage
 	{
 		return true;
 	}
+
+	private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+	{
+
+	}
 }
