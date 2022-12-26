@@ -1,4 +1,5 @@
 using EnzojbProd.App.Data;
+using EnzojbProd.App.Extensions;
 using EnzojbProd.App.Models;
 using EnzojbProd.App.Validation;
 
@@ -23,14 +24,17 @@ public partial class ProductItem : ContentPage
 
 	private async void OnSaveClicked(object sender, EventArgs e)
 	{
+		Product.Ean = Product.Ean.SoNumeros(false);
 		var validator = new ProductValidation();
 		var result = validator.Validate(Product);
 		if (!result.IsValid)
 		{
-			string messageError = string.Empty;
+			string messageError = result.Errors.Count == 1 ?
+				$"Erro encontrado:{Environment.NewLine}":
+				$"Erros encontrados:{Environment.NewLine}";
 			foreach (var item in result.Errors)
 			{
-				messageError = $"{messageError}Campo {item.PropertyName} Erro: {item.ErrorMessage}.{Environment.NewLine}";
+				messageError = $"{messageError}  {item.ErrorMessage}.{Environment.NewLine}";
 			}
 			await DisplayAlert("Dados inválidos", messageError, "OK");
 		}

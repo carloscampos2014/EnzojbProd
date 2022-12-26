@@ -12,7 +12,7 @@
                              Spacing="10"
                              VerticalOptions="FillAndExpand">
         <Label Text="GINT" />
-        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" Keyboard="Numeric" />
+        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" Keyboard="Numeric" IsReadOnly="{Binding DeleteEnabled}" />
         <Label Text="Descrição" />
         <Entry Text="{Binding Name}" IsTextPredictionEnabled="True" TextTransform="Uppercase"/>
         <Label Text="Estoque" />
