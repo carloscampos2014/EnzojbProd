@@ -5,18 +5,15 @@
              xmlns:models="clr-namespace:EnzojbProd.App.Models"
              x:DataType="models:ProductViewModel"
              Title="{Binding Title}">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
-    </Shell.BackButtonBehavior>
     <VerticalStackLayout Padding="20"
                              Spacing="10"
                              VerticalOptions="FillAndExpand">
         <Label Text="GINT" />
-        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" Keyboard="Numeric" IsReadOnly="{Binding DeleteEnabled}" />
+        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" TextChanged="OnTextChanged" Keyboard="Numeric" IsReadOnly="{Binding DeleteEnabled}" />
         <Label Text="Descrição" />
         <Entry Text="{Binding Name}" IsTextPredictionEnabled="True" TextTransform="Uppercase"/>
         <Label Text="Estoque" />
-        <Entry Text="{Binding Stock, StringFormat='{0:N2}'}" Keyboard="Numeric" />
+        <Entry Text="{Binding Stock, StringFormat='{0:N2}'}" TextChanged="OnTextChanged" Keyboard="Numeric" />
         <Grid Margin="0,20,0,0" RowDefinitions="*,Auto" 
                   ColumnSpacing="5" 
                   HorizontalOptions="EndAndExpand"

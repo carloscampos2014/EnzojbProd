@@ -58,7 +58,7 @@ public partial class ProductList : ContentPage
 
 	private async void SelectionChanged(object sender, SelectionChangedEventArgs e)
 	{
-		if (e.CurrentSelection.FirstOrDefault() is not ProductViewModel product)
+		if (e.CurrentSelection[0] is not ProductViewModel product)
 			return;
 		await OpenProductItem(product);
 	}
