@@ -9,7 +9,6 @@ public partial class ProductList : ContentPage
 {
 	private readonly ProductsRepository _productsRepository;
 	public ObservableCollection<ProductViewModel> Produtos { get; set; } = new();
-	private string _queryString = string.Empty;
 
 	internal async Task OpenProductItem(ProductViewModel product)
 	{
@@ -41,7 +40,6 @@ public partial class ProductList : ContentPage
 	{
 		SearchBar searchBar = (SearchBar)sender;
 		await LoadData(searchBar.Text);
-		_queryString = searchBar.Text;
 	}
 
 	private async void OnNewClicked(object sender, EventArgs e)
@@ -54,7 +52,7 @@ public partial class ProductList : ContentPage
 		if (!await DisplayAlert("Atenção", $"Deseja realmente excluir todos produtos?", "Não", "Sim"))
 		{
 			await _productsRepository.DeleteAllAsync();
-			await LoadData(_queryString);
+			searchBar.Text= string.Empty;	
 		}
 	}
 
