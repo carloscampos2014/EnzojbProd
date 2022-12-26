@@ -1,18 +1,17 @@
 ﻿namespace EnzojbProd.App.Data
 {
 	using EnzojbProd.App.Models;
-	using SQLite;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
 	using System.Threading.Tasks;
 
-	public class ProductsRepository
-	{
+	public class InventoryRepository
+    {
 		private readonly SqlLiteConnectionBuilder _connectionBuilder;
 
-		public ProductsRepository(SqlLiteConnectionBuilder connectionBuilder) 
+		public InventoryRepository(SqlLiteConnectionBuilder connectionBuilder) 
 		{
 			_connectionBuilder = connectionBuilder;
 		}
@@ -22,31 +21,21 @@
 			await _connectionBuilder.InitConnectionAsync();
 		}
 
-		public async Task<IEnumerable<ProductViewModel>> GetAllAsync(string name = "")
-		{
-			await Init();
-			return string.IsNullOrEmpty(name) ?
-				await _connectionBuilder.ConnectionAsync
-					.Table<ProductViewModel>().ToListAsync() :
-				await _connectionBuilder.ConnectionAsync
-					.Table<ProductViewModel>().Where(w => w.Name.ToLower().Contains(name.ToLower())).ToListAsync();
-		}
-
-		public async Task<ProductViewModel> GetProductAsync(int id)
+		public async Task<IEnumerable<InventoryViewModel>> GetAllAsync()
 		{
 			await Init();
 			return await _connectionBuilder.ConnectionAsync
-				.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Id.Equals(id));
+				.Table<InventoryViewModel>().ToListAsync();	
 		}
 
-		public async Task<ProductViewModel> GetProductAsync(string ean)
+		public async Task<InventoryViewModel> GetInventoryAsync(int id)
 		{
 			await Init();
 			return await _connectionBuilder.ConnectionAsync
-				.Table<ProductViewModel>().FirstOrDefaultAsync(f => f.Ean.Equals(ean));
+				.Table<InventoryViewModel>().FirstOrDefaultAsync(x => x.Id == id);
 		}
 
-		public async Task SaveAsync(ProductViewModel model)
+		public async Task SaveAsync(InventoryViewModel model)
 		{
 			await Init();
 			await _connectionBuilder.ConnectionAsync.RunInTransactionAsync(tran =>
@@ -65,12 +54,12 @@
 		public async Task DeleteAsync(int id)
 		{
 			await Init();
-			var product = await GetProductAsync(id);
+			var inventory = await GetInventoryAsync(id);
 			await _connectionBuilder.ConnectionAsync.RunInTransactionAsync(tran =>
 			{
-				if (product != null)
+				if (inventory != null)
 				{
-					tran.Delete(product);
+					tran.Delete(inventory);
 				}
 			});
 		}
@@ -80,7 +69,7 @@
 			await Init();
 			await _connectionBuilder.ConnectionAsync.RunInTransactionAsync(tran =>
 			{
-				tran.DeleteAll<ProductViewModel>();
+				tran.DeleteAll<InventoryViewModel>();
 			});
 		}
 	}

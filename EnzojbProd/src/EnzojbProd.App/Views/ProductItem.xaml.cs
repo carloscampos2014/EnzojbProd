@@ -24,7 +24,7 @@ public partial class ProductItem : ContentPage
 
 	private async void OnSaveClicked(object sender, EventArgs e)
 	{
-		Product.Ean = Product.Ean.SoNumeros(false);
+		Product.Ean = Product.Ean.OnlyNumbers(false);
 		var validator = new ProductValidation();
 		var result = validator.Validate(Product);
 		if (!result.IsValid)

@@ -11,6 +11,7 @@
 		{
 			InitializeComponent();
 			BindingContext = this;
+			Routing.RegisterRoute(nameof(ProductList), typeof(ProductList));
 			Routing.RegisterRoute(nameof(ProductItem), typeof(ProductItem));
 		}
 

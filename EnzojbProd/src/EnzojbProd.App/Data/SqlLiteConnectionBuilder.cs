@@ -25,6 +25,7 @@
 			await _connection.ExecuteAsync("PRAGMA foreignkeys = ON");
 
 			await _connection.CreateTableAsync<ProductViewModel>();
+			await _connection.CreateTableAsync<InventoryViewModel>();
 		}
 	}
 }

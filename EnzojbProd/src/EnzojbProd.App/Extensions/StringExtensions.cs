@@ -1,32 +1,60 @@
-﻿namespace EnzojbProd.App.Extensions
+﻿using EnzojbProd.App.Enums;
+using System.Reflection;
+
+namespace EnzojbProd.App.Extensions
 {
     public static class StringExtensions
     {
-		public static string SoNumeros(this string parametro, bool virgula)
+		public static string OnlyNumbers(this string parameter, bool comma)
 		{
-			string resultado = string.Empty;
-			if (parametro != string.Empty)
+			string result = string.Empty;
+			if (parameter != string.Empty)
 			{
-				for (int intContador = 0; intContador < parametro.Length; intContador++)
+				for (int count = 0; count < parameter.Length; count++)
 				{
-					char letra = Convert.ToChar(parametro.Substring(intContador, 1));
-					if (virgula)
+					char letter = Convert.ToChar(parameter.Substring(count, 1));
+					if (comma)
 					{
-						if (char.IsDigit(letra) || letra == ',')
+						if (char.IsDigit(letter) || letter == ',')
 						{
-							resultado += letra.ToString();
+							result += letter.ToString();
 						}
 					}
 					else
 					{
-						if (char.IsDigit(letra))
+						if (char.IsDigit(letter))
 						{
-							resultado += letra.ToString();
+							result += letter.ToString();
 						}
 					}
 				}
 			}
-			return resultado;
+			return result;
+		}
+		
+		public static string Description(this InventoryType type) =>
+			type.GetEnumDescription();
+
+		public static string Description(this InventoryStatus status) =>
+			status.GetEnumDescription();
+
+		internal static string GetEnumDescription<TEnum>(this TEnum @enum)
+		{
+			var field = typeof(TEnum).GetField(@enum.ToString());
+
+			if (field == null)
+			{
+				return @enum.ToString();
+			}
+
+			var description = field.GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
+
+			if (description == null)
+			{
+				return @enum.ToString();
+			}
+
+			return description.Description;
 		}
 	}
 }
