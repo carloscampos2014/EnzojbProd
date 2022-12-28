@@ -1,6 +1,7 @@
 ﻿namespace EnzojbProd.App.Models
 {
 	using EnzojbProd.App.Enums;
+	using EnzojbProd.App.Extensions;
 	using SQLite;
 	using System;
 	using System.Collections.Generic;
@@ -8,6 +9,7 @@
 	using System.Text;
 	using System.Threading.Tasks;
 
+	[Table("Inventories")]
 	public class InventoryViewModel
 	{
 		[PrimaryKey, AutoIncrement]
@@ -20,5 +22,7 @@
 		public DateTime? StartDate { get; set; }
 
 		public DateTime? EndDate { get; set;}
+
+		public virtual string TypeStatus => $"{Type.Description()}-{Status.Description()}";
 	}
 }

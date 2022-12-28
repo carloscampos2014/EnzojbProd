@@ -8,7 +8,8 @@ namespace EnzojbProd.App.Views;
 public partial class ProductList : ContentPage
 {
 	private readonly ProductsRepository _productsRepository;
-	public ObservableCollection<ProductViewModel> Produtos { get; set; } = new();
+	
+	public ObservableCollection<ProductViewModel> Products { get; set; } = new();
 
 	internal async Task OpenProductItem(ProductViewModel product)
 	{
@@ -23,9 +24,9 @@ public partial class ProductList : ContentPage
 		var items = await _productsRepository.GetAllAsync(query);
 		MainThread.BeginInvokeOnMainThread(() =>
 		{
-			Produtos.Clear();
+			Products.Clear();
 			foreach (var item in items)
-				Produtos.Add(item);
+				Products.Add(item);
 		});
 	}
 

@@ -2,6 +2,7 @@
 {
 	using SQLite;
 
+	[Table("Products")]
 	public class ProductViewModel
 	{
 		[PrimaryKey, AutoIncrement]

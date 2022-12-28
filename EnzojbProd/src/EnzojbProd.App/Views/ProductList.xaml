@@ -5,6 +5,8 @@
              x:Class="EnzojbProd.App.Views.ProductList"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="True"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:Application.WindowSoftInputModeAdjust="Resize"
              Title="Produtos">
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,120,120" ColumnSpacing="5" Padding="5">
         <SearchBar x:Name="searchBar"
@@ -29,7 +31,7 @@
             Grid.ColumnSpan="3"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
-            ItemsSource="{Binding Produtos}"
+            ItemsSource="{Binding Products}"
             SelectionMode="Single"
             SelectionChanged="SelectionChanged">
             <CollectionView.ItemTemplate>
