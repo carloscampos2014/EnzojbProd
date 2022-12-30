@@ -24,6 +24,10 @@
         </DataTemplate>
     </Shell.MenuItemTemplate>
     <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate views:Home}"
+        Route="Inicio" />
+    <ShellContent
         Title="Produtos"
         ContentTemplate="{DataTemplate views:ProductList}"
         Route="Produtos" />
