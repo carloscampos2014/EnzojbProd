@@ -2,24 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:EnzojbProd.App.Models"
-             x:Class="EnzojbProd.App.Views.ProductList"
+             x:Class="EnzojbProd.App.Views.InventoryList"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="True"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              android:Application.WindowSoftInputModeAdjust="Resize"
-             Title="Produtos">
+             Title="Inventários">
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,120,120" ColumnSpacing="5" Padding="5">
-        <SearchBar x:Name="searchBar"
-            Placeholder="Pesquisar..."
-            TextChanged="OnTextChanged"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center"/>
-        <Button Text="Novo"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center"
-            MinimumWidthRequest="100"
-            Clicked="OnNewClicked"
-            Grid.Column="1"/>
         <Button Text="Apagar Todos"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Center"
@@ -32,34 +21,48 @@
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             ItemsSource="{Binding Products}"
-            SelectionMode="Single"
-            SelectionChanged="SelectionChanged">
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ProductViewModel">
-                    <Grid RowDefinitions="Auto,Auto" 
+                <DataTemplate x:DataType="models:InventoryViewModel">
+                    <Grid RowDefinitions="Auto,Auto,Auto" 
                           ColumnDefinitions="*,*"
                           ColumnSpacing="5"
                           RowSpacing="3"
                           Padding="5">
-                        <Label Text="{Binding Name}"
+                        <Label Text="{Binding Id, StringFormat='Id: {0:D5}'}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Start"
+                               HorizontalOptions="FillAndExpand"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding TypeStatus}"
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Start"
                                HorizontalOptions="FillAndExpand"
                                FontAttributes="Bold"
-                               MinimumWidthRequest="550"
-                               Grid.Row="0"
-                               Grid.ColumnSpan="2"/>
-                        <Label Text="{Binding Ean, StringFormat='GINT: {0}'}"
+                               Grid.Column="1"/>
+                        <Label Text="Inicio"
                                VerticalTextAlignment="Center"
-                               HorizontalTextAlignment="Start"
+                               HorizontalTextAlignment="Center"
                                HorizontalOptions="FillAndExpand"
                                Grid.Row="1"
                                Grid.Column="0"/>
-                        <Label Text="{Binding Stock, StringFormat='Estoque: {0:N2}'}"
+                        <Label Text="Fim"
                                VerticalTextAlignment="Center"
-                               HorizontalTextAlignment="Start"
+                               HorizontalTextAlignment="Center"
                                HorizontalOptions="EndAndExpand"
                                Grid.Row="1"
+                               Grid.Column="1"/>
+                        <Label Text="{Binding StartDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Start"
+                               HorizontalOptions="FillAndExpand"
+                               Grid.Row="2"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding EndDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Start"
+                               HorizontalOptions="FillAndExpand"
+                               Grid.Row="2"
                                Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>

@@ -8,7 +8,8 @@ namespace EnzojbProd.App.Views;
 public partial class ProductList : ContentPage
 {
 	private readonly ProductsRepository _productsRepository;
-	public ObservableCollection<ProductViewModel> Produtos { get; set; } = new();
+	
+	public ObservableCollection<ProductViewModel> Products { get; set; } = new();
 
 	internal async Task OpenProductItem(ProductViewModel product)
 	{
@@ -23,9 +24,9 @@ public partial class ProductList : ContentPage
 		var items = await _productsRepository.GetAllAsync(query);
 		MainThread.BeginInvokeOnMainThread(() =>
 		{
-			Produtos.Clear();
+			Products.Clear();
 			foreach (var item in items)
-				Produtos.Add(item);
+				Products.Add(item);
 		});
 	}
 
@@ -47,9 +48,18 @@ public partial class ProductList : ContentPage
 		await OpenProductItem(new ProductViewModel());
 	}
 
+	private async void OnDeleteAllClicked(object sender, EventArgs e)
+	{
+		if (!await DisplayAlert("Atenção", $"Deseja realmente excluir todos produtos?", "Não", "Sim"))
+		{
+			await _productsRepository.DeleteAllAsync();
+			searchBar.Text= string.Empty;	
+		}
+	}
+
 	private async void SelectionChanged(object sender, SelectionChangedEventArgs e)
 	{
-		if (e.CurrentSelection.FirstOrDefault() is not ProductViewModel product)
+		if (e.CurrentSelection[0] is not ProductViewModel product)
 			return;
 		await OpenProductItem(product);
 	}

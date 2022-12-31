@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:Application.WindowSoftInputModeAdjust="Resize"
              x:Class="EnzojbProd.App.Views.ProductItem"
              xmlns:models="clr-namespace:EnzojbProd.App.Models"
              x:DataType="models:ProductViewModel"
              Title="{Binding Title}">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
-    </Shell.BackButtonBehavior>
     <VerticalStackLayout Padding="20"
                              Spacing="10"
                              VerticalOptions="FillAndExpand">
         <Label Text="GINT" />
-        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" Keyboard="Numeric" />
+        <Entry Text="{Binding Ean}" IsTextPredictionEnabled="True" TextChanged="OnTextChanged" Keyboard="Numeric" IsReadOnly="{Binding DeleteEnabled}" />
         <Label Text="Descrição" />
         <Entry Text="{Binding Name}" IsTextPredictionEnabled="True" TextTransform="Uppercase"/>
         <Label Text="Estoque" />
-        <Entry Text="{Binding Stock, StringFormat='{0:N2}'}" Keyboard="Numeric" />
+        <Entry Text="{Binding Stock, StringFormat='{0:N2}'}" TextChanged="OnTextChanged" Keyboard="Numeric" />
         <Grid Margin="0,20,0,0" RowDefinitions="*,Auto" 
                   ColumnSpacing="5" 
                   HorizontalOptions="EndAndExpand"

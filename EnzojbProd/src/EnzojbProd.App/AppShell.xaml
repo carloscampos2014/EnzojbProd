@@ -4,22 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:EnzojbProd.App.Views"
-    FlyoutHeaderBehavior="CollapseOnScroll">
-    <Shell.Resources>
-        <Style x:Key="BaseStyle"
-               TargetType="Element">
-            <Setter Property="Shell.ForegroundColor"
-                    Value="White" />
-            <Setter Property="Shell.TitleColor"
-                    Value="White" />
-            <Setter Property="Shell.DisabledColor"
-                    Value="#B4FFFFFF" />
-            <Setter Property="Shell.UnselectedColor"
-                    Value="#95FFFFFF" />
-        </Style>
-        <Style TargetType="ShellItem"
-               BasedOn="{StaticResource BaseStyle}" />
-    </Shell.Resources>
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    ios:Page.UseSafeArea="True"
+    xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+    android:Application.WindowSoftInputModeAdjust="Resize"
+    FlyoutHeaderBehavior="Fixed"
+    FlyoutIcon="flyouticon.png">
     <Shell.MenuItemTemplate>
         <DataTemplate>
             <Grid HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" ColumnDefinitions="0.2*,0.8*">
@@ -34,8 +24,11 @@
         </DataTemplate>
     </Shell.MenuItemTemplate>
     <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate views:Home}"
+        Route="Inicio" />
+    <ShellContent
         Title="Produtos"
-        Style="{StaticResource BaseStyle}"
         ContentTemplate="{DataTemplate views:ProductList}"
         Route="Produtos" />
     <MenuItem Text="Sair"

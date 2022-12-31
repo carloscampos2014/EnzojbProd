@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EnzojbProd.App.Views.Home"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:Application.WindowSoftInputModeAdjust="Resize"
+             xmlns:models="clr-namespace:EnzojbProd.App.Models"
+             Title="EnzojbProd">
+    <ContentPage.BindingContext>
+        <models:HomeViewModel/>
+    </ContentPage.BindingContext>
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          Padding="10"
+          ColumnDefinitions="*,100"
+          RowSpacing="5"
+          ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Text="Produtos"
+               FontAttributes="Bold"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="Center"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
+               Grid.ColumnSpan="2"/>
+        <Label Text="Cadastrados"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="Start"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
+               Grid.Row="1"
+               Grid.Column="0"/>
+        <Label Text="{Binding RegisteredProducts, StringFormat = '{0:N0}'}"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="End"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
+               Grid.Row="1"
+               Grid.Column="1"/>
+        <Label Text="Total em Estoque"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="Start"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
+               Grid.Row="2"
+               Grid.Column="0"/>
+        <Label Text="{Binding StockProducts, StringFormat = '{0:N0}'}"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="End"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
+               Grid.Row="2"
+               Grid.Column="1"/>
+    </Grid>
+</ContentPage>

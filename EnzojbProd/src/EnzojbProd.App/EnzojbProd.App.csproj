@@ -15,6 +15,7 @@
 		<Company>Enzojb Soft</Company>
 		<Copyright>Enzojb Soft ©  2022</Copyright>
 		
+		
 
 		<!-- Display name -->
 		<ApplicationTitle>EnzojbProd</ApplicationTitle>
@@ -59,16 +60,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\flyouticon.png" />
 	  <None Remove="Resources\Images\power.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="FluentValidation" Version="11.4.0" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.3" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Home.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InventoryList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ProductItem.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
