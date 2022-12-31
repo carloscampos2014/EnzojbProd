@@ -1,2 +1,3 @@
 # EnzojbProd
-Aplicação de Manutenção e inventario de produtos .Net Maui 7
+Aplicação de Manutenção de produtos .Net Maui 6
+Projeto meramente academico
