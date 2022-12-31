@@ -31,10 +31,6 @@
         Title="Produtos"
         ContentTemplate="{DataTemplate views:ProductList}"
         Route="Produtos" />
-    <ShellContent
-        Title="Inventarios"
-        ContentTemplate="{DataTemplate views:InventoryList}"
-        Route="Inventarios" />
     <MenuItem Text="Sair"
         IconImageSource="power.png"
         Command="{Binding ExitCommand}"/>
